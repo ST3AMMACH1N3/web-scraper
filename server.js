@@ -6,7 +6,7 @@ let cheerio = require('cheerio');
 
 let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/mongoHeadlines';
 
-let db = require('./models');
+// let db = require('./models');
 
 const PORT = 3000;
 
@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static('public'));
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 app.engine(
     'handlebars',
@@ -28,8 +28,8 @@ app.engine(
 
 app.set('view engine', 'handlebars');
 
-require('./controllers/routes/apiRoutes')(app)
-require('./controllers/routes/htmlRoutes')(app)
+require('./routes/apiRoutes')(app)
+require('./routes/htmlRoutes')(app)
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);

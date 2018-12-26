@@ -1,1 +1,11 @@
-<script src="../js/saved.js"></script>
+<div id='container'>
+    <h1>Associated Press Web Scraper</h1>
+    <hr>
+    <div id='articles'>
+        {{#each article}}
+            {{> article-block}}
+        {{/each}}
+    </div>
+</div>
+
+<script src='../js/saved.js'></script>

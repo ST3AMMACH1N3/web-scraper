@@ -1,7 +1,16 @@
 console.log('Index loaded');
 
-$.get('/api/scrape').then(() => {
-    $.get('/api/article').then((data) => {
-        console.log(data);
-    })
+$(document).on('click', '.article-btn', (event) => {
+    let target = $(event.currentTarget)
+    let id = target.data('id');
+    
+    $.post(`/api/save/${id}`).then(data => {
+        let parent = target.parent();
+        parent.empty();
+        let message = $('<p>').text('Article saved.');
+        parent.append(message);
+        setTimeout(() => {
+            parent.remove();
+        }, 1000);
+    });
 });

@@ -22,6 +22,10 @@ let ArticleSchema = new Schema({
         type: Boolean,
         default: false
     },
+    dateCreated: {
+        type: Date,
+        default: Date.now()
+    },
     notes: [
         {
             type: Schema.Types.ObjectId,

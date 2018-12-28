@@ -16,10 +16,24 @@ module.exports = function(app) {
     
     app.get('/api/article/:id', (req, res) => {
         db.Article.findById(req.params.id).then(data => {
+            console.log(data);
             res.json(data);
         }).catch(err => {
             res.end('Database Error')
             console.log(err);
+        })
+    });
+
+    app.post('/api/comment/:id', (req, res) => {
+        db.Note.create({ text: req.body.text }).then(dbNote => {
+            console.log('Note created');
+            res.json(dbNote);
+            return db.Article.findByIdAndUpdate(req.params.id, { $push: { notes: dbNote._id } })
+        }).then(dbArticle => {
+            console.log('Note added to array');
+            // res.json(dbArticle);
+        }).catch(err => {
+            res.end('Database Error')
         })
     });
 
@@ -29,6 +43,20 @@ module.exports = function(app) {
         }).catch(err => {
             res.end('Database Error')
             console.log(err);
+        })
+    });
+
+    app.post('/api/uncomment/:id', (req, res) => {
+        db.Note.findByIdAndRemove(req.body.id).then(dbNote => {
+            console.log('Trying to delete')
+            console.log(dbNote);
+            console.log(dbNote._id);
+            return db.Article.findByIdAndUpdate(req.params.id, { $pull: { notes: dbNote._id } })
+        }).then(dbArticle => {
+            console.log('Note removed from array');
+            res.json(dbArticle);
+        }).catch(err => {
+            res.end('Database Error')
         })
     });
 
@@ -68,19 +96,19 @@ module.exports = function(app) {
                         // console.log(err);
                     })
                 });
-                // canScrapeAgain = false
-                // let timer = setTimeout(() => {
-                //     canScrapeAgain = true;
-                // }, 60 * 1000);
+                canScrapeAgain = false
+                let timer = setTimeout(() => {
+                    canScrapeAgain = true;
+                }, 60 * 1000);
                 console.log('Scrape Complete')
-                res.send('Scrape Complete');
+                res.end('Scrape Complete');
             }).catch(err => {
                 res.end('Database Error')
                 console.log(err);
             })
         } else {
             console.log('Scraped too recently');
-            res.send('APNews has been scraped already recently');
+            res.end('Scrape Complete');
         }
         
     });

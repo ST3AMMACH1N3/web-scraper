@@ -1,12 +1,10 @@
-<div class='article'>
-    <h2>{{headline}}</h2>
-    <p>{{summary}}</p>
-    <a href='{{URL}}' target='_blank'>Link to article</a>
-    <button class='article-btn' data-id={{_id}} data-saved={{saved}}>
-        {{#if saved}}
-            Unsave
-        {{else}}
-            Save
-        {{/if}}
-    </button>
-</div>
+<h2>{{headline}}</h2>
+<p>{{summary}}</p>
+<a href='{{URL}}' target='_blank'>Link to article</a>
+<button class='article-btn' data-id={{_id}} data-saved={{saved}}>
+    {{#if saved}}
+        Unsave
+    {{else}}
+        Save
+    {{/if}}
+</button>

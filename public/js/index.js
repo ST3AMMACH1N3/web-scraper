@@ -1,6 +1,6 @@
 console.log('Index loaded');
 
-$(document).on('click', '.article-btn', (event) => {
+$(document).on('click', '.article-btn', event => {
     let target = $(event.currentTarget)
     let id = target.data('id');
     
@@ -14,3 +14,14 @@ $(document).on('click', '.article-btn', (event) => {
         }, 1000);
     });
 });
+
+$('.scrape-btn').on('click', event => {
+    event.preventDefault();
+    $.get('/api/scrape').then(data => {
+        if (data === 'Scrape Complete') {
+            location.reload();
+        } else {
+            console.log(data)
+        }
+    });
+})

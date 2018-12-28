@@ -1,9 +1,15 @@
 <div id='container'>
-    <h1>Associated Press Web Scraper</h1>
+    <header>
+        <h1>Associated Press Web Scraper</h1>
+        <a href='/api/scrape' class='nav scrape-btn'>Scrape</a>
+        <a href='/saved' class='nav'>Saved</a>
+    </header>
     <hr>
     <div id='articles'>
         {{#each article}}
-            {{> article-block}}
+            <div class='article'>
+                {{> article-block}}
+            </div>
         {{/each}}
     </div>
 </div>

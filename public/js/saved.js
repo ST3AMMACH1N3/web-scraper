@@ -1,5 +1,14 @@
 console.log('Saved loaded')
 
+function articlesCheck() {
+    if ($('#articles').children().length < 1) {
+        let error = $('<h2>').addClass('error').text('No Articles Saved');
+    
+        $('#articles').append(error);
+    }
+}
+articlesCheck();
+
 $('.article-btn').on('click', event => {
     let target = $(event.currentTarget);
     let id = target.data('id');
@@ -12,6 +21,7 @@ $('.article-btn').on('click', event => {
         parent.append(message);
         setTimeout(() => {
             parent.remove();
+            articlesCheck();
         }, 1000);
     });   
 });

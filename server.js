@@ -6,7 +6,7 @@ let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/mongoHeadlines
 
 let db = require('./models');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 8080;
 
 let app = express();
 

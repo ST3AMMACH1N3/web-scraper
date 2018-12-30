@@ -1,17 +1,19 @@
 <div id='container'>
-    <header>
-        <h1>Associated Press Web Scraper</h1>
-        <a href='/api/scrape' class='nav scrape-btn'>Scrape</a>
-        <a href='/saved' class='nav'>Saved</a>
-    </header>
+    {{> header-block}}
     <hr>
     <div id='articles'>
         {{#each article}}
             <div class='article'>
                 {{> article-block}}
+                <button class='view-btn' data-id={{_id}} data-visible='false'>View Notes</button>
             </div>
+            {{> note-container-block}}
         {{/each}}
     </div>
 </div>
 
-<script src='../js/index.js'></script>
+{{#if page}}
+    <script src='../js/saved.js'></script>
+{{else}}
+    <script src='../js/index.js'></script>
+{{/if}}

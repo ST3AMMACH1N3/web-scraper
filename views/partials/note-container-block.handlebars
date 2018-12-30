@@ -1,0 +1,11 @@
+<div class='notes hidden' id={{_id}}>
+    {{#each notes}}
+        <div class='note'>
+            {{>note-block}}
+        </div>
+    {{/each}}
+    <div class='input'>
+        <textarea name='text' class='textarea'></textarea>
+        <button class='submit-btn' data-id={{_id}}>Submit</button>
+    </div>
+</div>

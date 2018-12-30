@@ -2,7 +2,10 @@ console.log('Saved loaded')
 
 function articlesCheck() {
     if ($('#articles').children().length < 1) {
-        let error = $('<h2>').addClass('error').text('No Articles Saved');
+        let error = $('<div>').addClass('error')
+        let message = $('<h2>').addClass('message').text('No Articles Saved');
+
+        error.append(message);
     
         $('#articles').append(error);
     }
@@ -17,7 +20,8 @@ $('.article-btn').on('click', event => {
         let parent = target.parent();
         let note = $(`#${id}`).remove();
         parent.empty();
-        let message = $('<p>').text('Article no longer saved.');
+        parent.addClass('error');
+        let message = $('<p>').addClass('message').text('Article no longer saved.');
         parent.append(message);
         setTimeout(() => {
             parent.remove();

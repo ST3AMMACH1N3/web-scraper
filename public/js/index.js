@@ -6,31 +6,11 @@ function articlesCheck() {
         let message = $('<h2>').addClass('message').text('No Articles');
 
         error.append(message);
-    
+
         $('#articles').append(error);
     }
 }
 articlesCheck();
-
-$('.article-btn').on('click', event => {
-    let target = $(event.currentTarget);
-    let id = target.data('id');
-    
-    $.post(`/api/unsave/${id}`).then(data => {
-        let parent = target.parent();
-        let note = $(`#${id}`).remove();
-        parent.empty();
-        parent.addClass('error');
-        let message = $('<p>').addClass('message').text('Article no longer saved.');
-        parent.append(message);
-        setTimeout(() => {
-            parent.remove();
-            articlesCheck();
-        }, 1000);
-    });   
-});
-
-
 
 $('.scrape-btn').on('click', event => {
     event.preventDefault();
@@ -65,7 +45,7 @@ $('.submit-btn').on('click', event => {
 
     let textArea = parent.find('.textarea');
     console.log(textArea.val());
-    
+
     $.post(`/api/comment/${id}`, { text: textArea.val() }).then(data => {
         textArea.val('');
         let div = $('<div>').addClass('note');
@@ -93,7 +73,7 @@ $('.view-btn').on('click', event => {
 $(document).on('click', '.article-btn', event => {
     let target = $(event.currentTarget)
     let id = target.data('id');
-    
+
     $.post(`/api/save/${id}`).then(data => {
         let parent = target.parent();
         parent.empty();
@@ -115,7 +95,7 @@ $(document).on('click', '.delete-btn', event => {
     let target = $(event.target);
     let targetArticle = target.closest('.notes');
 
-    $.post(`/api/uncomment/${$(targetArticle).attr('id')}`, {id: target.data('id')}).then(data => {
+    $.post(`/api/uncomment/${$(targetArticle).attr('id')}`, { id: target.data('id') }).then(data => {
         target.parent().remove();
     });
 });
